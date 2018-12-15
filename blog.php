@@ -1,11 +1,11 @@
 <?php
+// https://pastebin.com/4HGrSdJW
 // Host: 140.82.38.238
 // Login: pa_test
 // Password: pa_test
 // Password: parser
 // TODO: move params to config
 $link = mysqli_connect("140.82.38.238", "pa_test", "pa_test", "parser");
-
 if (!$link) {
     echo "Ошибка: Невозможно установить соединение с MySQL." . PHP_EOL;
     echo "Код ошибки errno: " . mysqli_connect_errno() . PHP_EOL;
@@ -13,10 +13,12 @@ if (!$link) {
     exit;
 }
 
-echo "Соединение с MySQL установлено!" . PHP_EOL;
-echo "Информация о сервере: " . mysqli_get_host_info($link) . PHP_EOL;
+mysqli_query($link,'set names utf8');
 
-$sql = "SELECT id, url FROM parser.articles limit 5";
+/**
+ * SELECT ARTICLES FROM DB!
+ */
+$sql = "SELECT id, url, h1 FROM parser.articles";
 $result = mysqli_query($link, $sql);
 // This is my articles var
 $articles = array();
@@ -25,7 +27,8 @@ while($row = mysqli_fetch_assoc($result)){
 }
 
 foreach($articles as $article){ ?>
-    <b><?=$article['id']?></b>
-    <?=$article['url']?>
+    <b><?=$article['h1']?></b>
+    <a href="article.php?id=<?=$article['id']?>">Читать далее</a>
+    <a href="edit.php?id=<?=$article['id']?>">Редактировать</a>
     <br>
 <?php }
