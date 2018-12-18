@@ -25,7 +25,7 @@ while($row = mysqli_fetch_assoc($result)){
 }
 
 foreach($products as $product){ ?>
-    <br><?=$product['id']?>
+    <br><a href="edit_home.php?id=<?=$product['id']?>">Редактировать</a>
     <?=$product['title']?>
     <br> <?=$product['description']?>
     <br>
@@ -36,3 +36,5 @@ foreach($products as $product){ ?>
     <br>
 
 <?php }
+
+
